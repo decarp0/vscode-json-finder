@@ -8,6 +8,8 @@ JSON Finder is a Visual Studio Code extension that allows you to quickly find an
 - **Navigate to Key**: Automatically open the file containing the key and position the cursor at the correct line.
 - **Hotkey Support**: Bind a custom hotkey (`Cmd+Shift+L` on macOS or `Ctrl+Shift+L` on other platforms) for quick access.
 
+![Demo](https://github.com/decarp0/vscode-json-finder/blob/main/images/preview1.gif?raw=true)
+
 ## Installation
 
 1. Open Visual Studio Code.
