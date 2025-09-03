@@ -4,7 +4,7 @@ JSON Finder is a Visual Studio Code extension that allows you to quickly find an
 
 ## Features
 
-- **Quick Search**: Use a command or hotkey to input a JSON key path and locate its value across all JSON files in your workspace.
+- **Quick Search**: Use a command or hotkey to input a JSON key path like (e.g., `customers.table.header.name`) and locate its value across all JSON files in your workspace.
 - **Navigate to Key**: Automatically open the file containing the key and position the cursor at the correct line.
 - **Hotkey Support**: Bind a custom hotkey (`Cmd+Shift+L` on macOS or `Ctrl+Shift+L` on other platforms) for quick access.
 
