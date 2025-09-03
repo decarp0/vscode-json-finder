@@ -45,10 +45,6 @@ We welcome feedback and contributions! Please feel free to open issues or submit
 
 This extension is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-## Contact
-
-For questions or support, please contact [your-email@example.com](mailto:your-email@example.com).
-
 ---
 
-Thank you for using JSON Key Navigator! We hope it enhances your productivity and makes working with JSON files easier.
+Thank you for using JSON Finder! We hope it enhances your productivity and makes working with JSON files easier.
