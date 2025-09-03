@@ -2,6 +2,11 @@
   "name": "jsonfinder",
   "displayName": "JSON Finder",
   "description": "Find or Lookup any key value by JSON key path in nested JSON files.",
+  "publisher": "decarp0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/decarp0/vscode-json-finder"
+  },
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.103.0"
@@ -14,14 +19,14 @@
   "contributes": {
     "commands": [
       {
-        "command": "jsonfinder.findJsonKey",
+        "command": "jsonfinder.findJsonKeyByPath",
         "title": "jsonfinder: Find JSON key and value by path"
       }
     ],
     "keybindings": [
       {
-        "command": "jsonfinder.findJsonKey",
-        "key": "cmd+shift+l",
+        "command": "jsonfinder.findJsonKeyByPath",
+        "key": "ctrl+shift+l",
         "mac": "cmd+shift+l",
         "when": "editorTextFocus"
       }

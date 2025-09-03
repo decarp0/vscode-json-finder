@@ -6,7 +6,7 @@ import * as path from "path";
 
 export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand(
-    "jsonfinder.findJsonKey",
+    "jsonfinder.findJsonKeyByPath",
     async () => {
       const key = await vscode.window.showInputBox({
         prompt: "Enter JSON key path",
@@ -14,6 +14,8 @@ export function activate(context: vscode.ExtensionContext) {
       if (!key) return;
 
       const files = await vscode.workspace.findFiles("**/*.json");
+      let found = false;
+
       for (const file of files) {
         try {
           const content = fs.readFileSync(file.fsPath, "utf8");
@@ -39,11 +41,15 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.window.showInformationMessage(
               `Found value: ${value} in ${file.fsPath}:${lineNumber}`
             );
+            found = true;
             break;
           }
         } catch (error) {
           console.error(`Error reading or parsing ${file.fsPath}:`, error);
         }
+      }
+      if (!found) {
+        vscode.window.showWarningMessage(`Path '${key}' not found.`);
       }
     }
   );
