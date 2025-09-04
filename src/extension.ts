@@ -13,10 +13,14 @@ export function activate(context: vscode.ExtensionContext) {
       });
       if (!key) return;
 
-      const files = await vscode.workspace.findFiles("**/*.json");
+      const files = await vscode.workspace.findFiles(
+        "**/*.json",
+        "{**/node_modules/**,**/dist/**,**/build/**}"
+      );
       let found = false;
 
       for (const file of files) {
+        console.debug("file: ", file);
         try {
           const content = fs.readFileSync(file.fsPath, "utf8");
           const json = JSON.parse(content);
@@ -29,13 +33,15 @@ export function activate(context: vscode.ExtensionContext) {
             const editor = await vscode.window.showTextDocument(document);
 
             // Find the line number containing the key
-            const lines = content.split("\n");
             let lineNumber = findLineNumber(content, key.split("."));
 
             if (lineNumber !== -1) {
               const position = new vscode.Position(lineNumber, 0);
               editor.selection = new vscode.Selection(position, position);
-              editor.revealRange(new vscode.Range(position, position));
+              editor.revealRange(
+                new vscode.Range(position, position),
+                vscode.TextEditorRevealType.InCenter
+              );
             }
 
             vscode.window.showInformationMessage(
@@ -60,7 +66,14 @@ export function activate(context: vscode.ExtensionContext) {
 function findValue(obj: any, keys: string[]): any {
   let current = obj;
   for (const key of keys) {
-    if (current[key] === undefined) return undefined;
+    if (current[key] === undefined) {
+      // Check for linear key
+      const linearKey = keys.join(".");
+      if (obj[linearKey] !== undefined) {
+        return obj[linearKey];
+      }
+      return undefined;
+    }
     current = current[key];
   }
   return current;
@@ -68,19 +81,23 @@ function findValue(obj: any, keys: string[]): any {
 
 function findLineNumber(content: string, keys: string[]): number {
   const lines = content.split("\n");
+  const path = keys.join(".");
   let currentPath = "";
+
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
-    if (line.startsWith(`"${keys[0]}"`)) {
+
+    // Check for nested keys
+    if (line.includes(`"${keys[0]}"`)) {
       currentPath = keys.shift()!;
       if (keys.length === 0) {
         return i;
       }
-    } else if (currentPath && line.includes(`"${keys[0]}"`)) {
-      currentPath = keys.shift()!;
-      if (keys.length === 0) {
-        return i;
-      }
+    }
+
+    // Check for linear key
+    if (line.includes(`"${path}"`)) {
+      return i;
     }
   }
   return -1;
