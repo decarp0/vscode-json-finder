@@ -1,14 +1,14 @@
 {
   "name": "jsonfinder",
   "displayName": "JSON Finder",
-  "description": "Find or Lookup any key value by JSON key path in nested JSON files.",
+  "description": "Find or Lookup any key value by JSON key path in nested JSON files or find usage location of key.",
   "publisher": "decarp0",
   "icon": "images/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/decarp0/vscode-json-finder"
   },
-  "version": "0.0.3",
+  "version": "1.0.1",
   "engines": {
     "vscode": "^1.103.0"
   },
@@ -22,6 +22,10 @@
       {
         "command": "jsonfinder.findJsonKeyByPath",
         "title": "jsonfinder: Find JSON key and value by path"
+      },
+      {
+        "command": "jsonfinder.findUsageByValue",
+        "title": "jsonfinder: Find Usage of Translation Key"
       }
     ],
     "keybindings": [
@@ -29,9 +33,29 @@
         "command": "jsonfinder.findJsonKeyByPath",
         "key": "ctrl+shift+l",
         "mac": "cmd+shift+l",
-        "when": "editorTextFocus"
+        "when": "editorTextFocus && resourceLangId != json"
+      },
+      {
+        "command": "jsonfinder.findUsageByValue",
+        "key": "ctrl+shift+l",
+        "mac": "cmd+shift+l",
+        "when": "editorTextFocus && resourceLangId == json"
       }
-    ]
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "jsonfinder.findUsageByValue",
+          "when": "resourceLangId == json",
+          "group": "navigation"
+        },
+        {
+          "command": "jsonfinder.findJsonKeyByPath",
+          "when": "resourceLangId != json",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -42,14 +66,17 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.103.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
+    "@types/vscode": "^1.103.0",
     "@typescript-eslint/eslint-plugin": "^8.39.0",
     "@typescript-eslint/parser": "^8.39.0",
-    "eslint": "^9.32.0",
-    "typescript": "^5.9.2",
     "@vscode/test-cli": "^0.0.11",
-    "@vscode/test-electron": "^2.5.2"
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.32.0",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "jsonc-parser": "^3.3.1"
   }
 }
