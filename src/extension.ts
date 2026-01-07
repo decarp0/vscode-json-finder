@@ -10,7 +10,8 @@ const COMMAND_FIND_JSON = "jsonfinder.findJsonKeyByPath";
 const COMMAND_FIND_USAGE = "jsonfinder.findUsageByValue";
 
 export const INCLUDED_FILES = "**/*.json";
-export const EXCLUDED_FILES = "{**/node_modules/**,**/dist/**,**/build/**}";
+export const EXCLUDED_FILES =
+  "{**/node_modules/**,**/dist/**,**/build/**,**/.*}";
 
 const findJson = async () => {
   const editor = vscode.window.activeTextEditor;
