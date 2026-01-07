@@ -21,14 +21,21 @@ JSON Finder is a Visual Studio Code extension that allows you to quickly find an
 
 ### Command Palette
 
-1. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P` on macOS).
-2. Type `jsonfinder: Find JSON key and value by path` and select the command.
-3. Enter the JSON key path (e.g. an i18n translation key: `customers.table.header.name`).
-4. The extension will search all JSON files and navigate to the line containing the key.
+#### Find JSON key in JSON file:
+
+1. Put your cursor at the i18n translation key e.g. `customers.table.header.name`.
+2. Right click and select `jsonfinder: Find JSON key and value by path`.
+3. The extension will search all JSON files and navigate to the line containing the key.
+
+#### Find usage of JSON key in other files:
+
+1. Put your cursor at the i18n translation key e.g. `name`.
+2. Right click and select `jsonfinder: Find Usage of Translation Key`.
+3. The extension will search all files and navigate to the line containing the usage of the (nested) key.
 
 ### Hotkey
 
-- Press `Cmd+Shift+L` (macOS) or `Ctrl+Shift+L` (Windows/Linux) to activate the search directly.
+- Press `Cmd+Shift+L` (macOS) or `Ctrl+Shift+L` (Windows/Linux) to activate the search directly. Make sure your cursor is on the key.
 
 ## Configuration
 
